@@ -1,7 +1,7 @@
 FROM mariadb:10.1
 
 RUN apt-get update && \
-	apt-get install -y curl \
+	apt-get install -y curl && \
 	apt-get -y clean 
 
 ADD resources/run-mariadb-tutum-cluster.sh /
