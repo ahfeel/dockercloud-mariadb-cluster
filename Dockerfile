@@ -5,6 +5,7 @@ RUN apt-get update && \
 	apt-get -y clean 
 
 ADD resources/run-mariadb-tutum-cluster.sh /
+RUN mv /etc/mysql/my.cnf /etc/mysql/my.cnf.orig
 ADD resources/my.cnf /etc/mysql/
 
 RUN chown -R mysql:mysql /var/lib/mysql
