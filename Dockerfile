@@ -8,6 +8,8 @@ ADD resources/run-mariadb-tutum-cluster.sh /
 RUN mv /etc/mysql/my.cnf /etc/mysql/my.cnf.orig
 ADD resources/my.cnf /etc/mysql/
 
+VOLUME /var/lib/mysql
+
 EXPOSE 3306 4567 4568 4444
 
 CMD ["/run-mariadb-tutum-cluster.sh"]
