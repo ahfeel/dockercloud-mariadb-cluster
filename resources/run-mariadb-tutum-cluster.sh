@@ -19,5 +19,7 @@ else
     CLUSTER="gcomm://${CLUSTER}"
 fi
 
-echo /docker-entrypoint.sh --wsrep_sst_auth=wsrep_sst_auth --wsrep_node_address="${NODE_ADDR}" --wsrep_node_incoming_address="${NODE_ADDR}" --wsrep_cluster_address="${CLUSTER}" --wsrep_node_name=${HOSTNAME} ${EXTRA_OPTIONS}
-/docker-entrypoint.sh --wsrep_sst_auth=${wsrep_sst_auth} --wsrep_node_address="${NODE_ADDR}" --wsrep_node_incoming_address="${NODE_ADDR}" --wsrep_cluster_address="${CLUSTER}" --wsrep_node_name=${HOSTNAME} ${EXTRA_OPTIONS}
+INNOBDB_BUFFER_POOL_SIZE=$((`cat /proc/meminfo | grep MemTotal | cut -d ' ' -f 9` / 2000))M
+
+echo /docker-entrypoint.sh --innodb_buffer-pool-size=$INNOBDB_BUFFER_POOL_SIZE --wsrep_sst_auth=wsrep_sst_auth --wsrep_node_address="${NODE_ADDR}" --wsrep_node_incoming_address="${NODE_ADDR}" --wsrep_cluster_address="${CLUSTER}" --wsrep_node_name=${HOSTNAME} ${EXTRA_OPTIONS}
+/docker-entrypoint.sh --innodb_buffer-pool-size=$INNOBDB_BUFFER_POOL_SIZE --wsrep_sst_auth=${wsrep_sst_auth} --wsrep_node_address="${NODE_ADDR}" --wsrep_node_incoming_address="${NODE_ADDR}" --wsrep_cluster_address="${CLUSTER}" --wsrep_node_name=${HOSTNAME} ${EXTRA_OPTIONS}
